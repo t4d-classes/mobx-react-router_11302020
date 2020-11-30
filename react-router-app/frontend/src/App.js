@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink, Route, Switch } from 'react-router-dom';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -32,9 +32,14 @@ function App() {
         </ul>
       </Menu>
       <Content>
-        <Route path="/" exact component={Home} />
-        <Route path="/about" component={About} />
-        <ProtectedRoute path="/dashboard" lazyComponent={Dashboard} roles={['user']} redirectTo="/" />
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/about" component={About} />
+          <ProtectedRoute path="/dashboard" lazyComponent={Dashboard} roles={['admin']} redirectTo="/" />
+          <Route path="*">
+            Oops... Could not find what you are looking for. How about a nice game of chess.
+          </Route>
+        </Switch>
       </Content>
       <Sidebar>
         Sidebar
