@@ -14,9 +14,11 @@ export const ProtectedRoute = function ProtectedRoute(props) {
 
   const { lazyComponent: LazyComponent, roles, redirectTo, ...routeProps } = props;
 
-  const [ roleStatus, setRoleStatus ] = useState(ROLE_STATUS_UNKNOWN);
 
   return <Route {...routeProps} component={() => {
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [ roleStatus, setRoleStatus ] = useState(ROLE_STATUS_UNKNOWN);
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useLayoutEffect(() => {
