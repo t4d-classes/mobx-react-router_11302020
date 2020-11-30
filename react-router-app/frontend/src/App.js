@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { NavLink, Route } from 'react-router-dom';
+
+import Home from './pages/Home';
+import About from './pages/About';
+import { Layout } from './components/Layout';
+import { Header } from './components/Header';
+import { Menu } from './components/Menu';
+import { Content } from './components/Content';
+import { Sidebar } from './components/Sidebar';
+import { Footer } from './components/Footer';
+
+const activePage = {
+  textDecoration: 'underline'
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Header>
+        <h1>App Tool</h1>
+      </Header>
+      <Menu>
+        <ul>
+          <li><NavLink to="/" exact activeStyle={activePage}>Home</NavLink></li>
+          <li><NavLink to="/about" activeStyle={activePage}>About</NavLink></li>
+        </ul>
+      </Menu>
+      <Content>
+        <Route path="/" exact component={Home} />
+        <Route path="/about" component={About} />
+      </Content>
+      <Sidebar>
+        Sidebar
+      </Sidebar>
+      <Footer>
+        <small>
+          &copy; {new Date().getFullYear()} A Cool Company, Inc.
+        </small>
+      </Footer>
+    </Layout>
   );
 }
 
