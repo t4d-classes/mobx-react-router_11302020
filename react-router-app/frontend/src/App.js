@@ -1,13 +1,18 @@
+import { lazy } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import About from './pages/About';
+
 import { Layout } from './components/Layout';
 import { Header } from './components/Header';
 import { Menu } from './components/Menu';
 import { Content } from './components/Content';
 import { Sidebar } from './components/Sidebar';
 import { Footer } from './components/Footer';
+import { ProtectedRoute } from './components/ProtectedRoute';
+
+const Dashboard = lazy(() => import('./pages/Dashboard'));
 
 const activePage = {
   textDecoration: 'underline'
@@ -23,11 +28,13 @@ function App() {
         <ul>
           <li><NavLink to="/" exact activeStyle={activePage}>Home</NavLink></li>
           <li><NavLink to="/about" activeStyle={activePage}>About</NavLink></li>
+          <li><NavLink to="/dashboard" activeStyle={activePage}>Dashboard</NavLink></li>
         </ul>
       </Menu>
       <Content>
         <Route path="/" exact component={Home} />
         <Route path="/about" component={About} />
+        <ProtectedRoute path="/dashboard" lazyComponent={Dashboard} roles={['user']} redirectTo="/" />
       </Content>
       <Sidebar>
         Sidebar

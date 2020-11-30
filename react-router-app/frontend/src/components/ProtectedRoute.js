@@ -1,4 +1,4 @@
-import { Suspense, useState, useLayoutEffect, memo } from 'react';
+import { Suspense, useState, useLayoutEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { intersection } from 'lodash';
 
@@ -10,39 +10,40 @@ const ROLE_STATUS_NO = 2;
 
 const loading = <div>Loading...</div>;
 
-export const ProtectedRoute = memo(function ProtectedRoute(props) {
+export const ProtectedRoute = function ProtectedRoute(props) {
 
   const { lazyComponent: LazyComponent, roles, redirectTo, ...routeProps } = props;
 
   const [ roleStatus, setRoleStatus ] = useState(ROLE_STATUS_UNKNOWN);
 
-  useLayoutEffect(() => {
+  return <Route {...routeProps} component={() => {
 
-    if (roleStatus === ROLE_STATUS_UNKNOWN) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useLayoutEffect(() => {
 
-      let roleValidationPromise;
+      if (roleStatus === ROLE_STATUS_UNKNOWN || roleStatus === ROLE_STATUS_NO) {
 
-      // roleValidationPromise = authAxios.post('/api/users/has_one_or_more_roles', { roles });
+        let roleValidationPromise;
 
-      roleValidationPromise = Promise.resolve({
-        data: { hasRole: intersection(roles, window.__app__.userRoles).length > 0 }
-      });
+        // roleValidationPromise = authAxios.post('/api/users/has_one_or_more_roles', { roles });
 
-      roleValidationPromise.then(response => {
+        roleValidationPromise = Promise.resolve({
+          data: { hasRole: intersection(roles, window.__app__?.userRoles).length > 0 }
+        });
 
-        if (response.data.hasRole) {
-          setRoleStatus(ROLE_STATUS_YES);
-        } else {
-          setRoleStatus(ROLE_STATUS_NO);
-        }
+        roleValidationPromise.then(response => {
 
-      });
+          if (response.data.hasRole) {
+            setRoleStatus(ROLE_STATUS_YES);
+          } else {
+            setRoleStatus(ROLE_STATUS_NO);
+          }
 
-    }
+        });
 
-  }, [ roleStatus, roles ]);
+      }
 
-  return <Route {...routeProps} render={() => {
+    });
 
     switch (roleStatus) {
       case ROLE_STATUS_YES:
@@ -57,4 +58,4 @@ export const ProtectedRoute = memo(function ProtectedRoute(props) {
 
   }} />
 
-});
+};
