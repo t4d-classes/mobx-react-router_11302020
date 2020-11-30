@@ -9,6 +9,7 @@ const Home = () => {
     }
 
     window.__app__.userAccessToken = user.accessToken;
+    window.__app__.userRoles = user.roles;
     window.localStorage.userRefreshToken = user.refreshToken;
   };
 

@@ -50,6 +50,7 @@ authAxios.interceptors.response.use(response => response, error => {
       }
 
       window.__app__.userAccessToken = response.data.accessToken;
+      window.__app__.userRoles = response.data.roles;
       window.localStorage.userRefreshToken = response.data.refreshToken;
 
       return authAxios.request(config);

@@ -1,0 +1,21 @@
+
+
+POST http://localhost:8080/api/users/login
+Content-Type: application/json
+
+{ "username": "adodsworth", "password": "testpass", "kind": "employee" }
+
+###
+
+POST http://localhost:8080/api/users/login
+Content-Type: application/json
+
+{ "username": "afuller", "password": "testpass", "kind": "employee" }
+
+###
+
+POST http://localhost:8080/api/users/has_one_or_more_roles HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkb2Rzd29ydGgiLCJkaXNwbGF5X25hbWUiOiJBbm5lIERvZHN3b3J0aCIsInVzZXJfa2luZCI6ImVtcGxveWVlIiwicm9sZXMiOlsidXNlciJdLCJpc19hY2Nlc3MiOnRydWUsImlzX3JlZnJlc2giOmZhbHNlLCJleHAiOjE2MDY3NjM4NDV9.Str6fqSiGNnEzfZ9LFSSI7OS0L3ts-TY3Y9AFuRn9QM
+
+{ "roles": [ "user", "admin" ] }
