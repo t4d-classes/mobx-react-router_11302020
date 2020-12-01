@@ -16,15 +16,15 @@ from .entities.color import Color
 class Adapters(containers.DeclarativeContainer):
     config = providers.Configuration()
 
-    logging = providers.Singleton(
+    logging = providers.Factory(
         Logging,
     )
 
-    bcrypt = providers.Singleton(
+    bcrypt = providers.Factory(
         Bcrypt,
     )
 
-    data_session = providers.Singleton(
+    data_session = providers.Factory(
         PgDataSession,
         url=config.database.url,
         name=config.database.name,
@@ -32,12 +32,12 @@ class Adapters(containers.DeclarativeContainer):
         password=config.database.password
     )
 
-    password_tools = providers.Singleton(
+    password_tools = providers.Factory(
         PasswordTools,
         bcrypt=bcrypt
     )
 
-    categories = providers.Singleton(
+    categories = providers.Factory(
         Entities,
         logging=logging,
         data_session=data_session,
@@ -45,13 +45,13 @@ class Adapters(containers.DeclarativeContainer):
         model_key_field='category_id'
     )
 
-    employees = providers.Singleton(
+    employees = providers.Factory(
         Employees,
         logging=logging,
         data_session=data_session,
     )
 
-    suppliers = providers.Singleton(
+    suppliers = providers.Factory(
         Entities,
         logging=logging,
         data_session=data_session,
@@ -59,7 +59,7 @@ class Adapters(containers.DeclarativeContainer):
         model_key_field='supplier_id'
     )
 
-    products = providers.Singleton(
+    products = providers.Factory(
         Entities,
         logging=logging,
         data_session=data_session,
@@ -67,7 +67,7 @@ class Adapters(containers.DeclarativeContainer):
         model_key_field='product_id'
     )
 
-    cars = providers.Singleton(
+    cars = providers.Factory(
         Entities,
         logging=logging,
         data_session=data_session,
@@ -75,7 +75,7 @@ class Adapters(containers.DeclarativeContainer):
         model_key_field='car_id'
     )
 
-    colors = providers.Singleton(
+    colors = providers.Factory(
         Entities,
         logging=logging,
         data_session=data_session,
