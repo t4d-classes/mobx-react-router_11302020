@@ -36,6 +36,24 @@ export function CalcTool(props) {
           <button onClick={() => props.onDeleteHistoryEntry(entry.id)}>X</button>
         </li>)}
       </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Add</th>
+            <th>Subtract</th>
+            <th>Multiply</th>
+            <th>Divide</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{props.counts.add}</td>
+            <td>{props.counts.subtract}</td>
+            <td>{props.counts.multiply}</td>
+            <td>{props.counts.divide}</td>
+          </tr>
+        </tbody>
+      </table>
     </>
   )
 

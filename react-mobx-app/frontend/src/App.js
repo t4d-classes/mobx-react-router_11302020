@@ -10,6 +10,7 @@ const App = observer(function App() {
   return (
     <CalcTool result={calcToolStore.result}
       history={[...calcToolStore.history]}
+      counts={calcToolStore.counts}
       onDeleteHistoryEntry={calcToolStore.deleteHistoryEntry}
       onClear={calcToolStore.clear}
       onAdd={calcToolStore.add}
