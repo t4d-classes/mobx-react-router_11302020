@@ -9,6 +9,7 @@ const calcToolStore = new CalcToolStore();
 const App = observer(function App() {
   return (
     <CalcTool result={calcToolStore.result}
+      history={[...calcToolStore.history]}
       onAdd={calcToolStore.add}
       onSubtract={calcToolStore.subtract}
       onMultiply={calcToolStore.multiply}

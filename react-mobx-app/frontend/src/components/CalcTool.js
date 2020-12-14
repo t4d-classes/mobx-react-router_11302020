@@ -23,6 +23,11 @@ export function CalcTool(props) {
             /</button>
         </fieldset>
       </form>
+      <ul>
+        {props.history.map(entry => <li key={entry.id}>
+          {entry.opName} {entry.opValue}
+        </li>)}
+      </ul>
     </>
   )
 
