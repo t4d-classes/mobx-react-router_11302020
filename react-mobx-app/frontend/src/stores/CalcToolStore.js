@@ -13,11 +13,22 @@ export class CalcToolStore {
   }
 
   // stateful logic
-  add(num) {
+  // class arrow function
+  // bound action
+  add = (num) => {
     this.result += num;
   }
 
-  subtract(num) {
+  subtract = (num) => {
     this.result -= num;
   }
+
+  multiply = (num) => {
+    this.result *= num;
+  }
+
+  divide = (num) => {
+    this.result /= num;
+  }
+
 }
