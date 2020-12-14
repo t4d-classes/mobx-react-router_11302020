@@ -4,6 +4,11 @@ export function CalcTool(props) {
 
   const [numInput, setNumInput] = useState(0);
 
+  const clear = () => {
+    setNumInput(0);
+    props.onClear();
+  };
+
   return (
     <>
       <div>
@@ -21,11 +26,14 @@ export function CalcTool(props) {
             *</button>
           <button type="button" onClick={() => props.onDivide(numInput)}>
             /</button>
+          <button type="button" onClick={clear}>
+            Clear</button>
         </fieldset>
       </form>
       <ul>
         {props.history.map(entry => <li key={entry.id}>
           {entry.opName} {entry.opValue}
+          <button onClick={() => props.onDeleteHistoryEntry(entry.id)}>X</button>
         </li>)}
       </ul>
     </>

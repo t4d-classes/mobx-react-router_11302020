@@ -60,4 +60,14 @@ export class CalcToolStore {
 
   }
 
+  clear = () => {
+    this.result = 0;
+    this.history = [];
+  }
+
+  deleteHistoryEntry = (entryId) => {
+    const entryIndex = this.history.findIndex(he => he.id === entryId);
+    this.history.splice(entryIndex, 1);
+  }
+
 }
