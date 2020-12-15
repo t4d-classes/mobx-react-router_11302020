@@ -1,8 +1,11 @@
 import { observer } from 'mobx-react-lite';
 
 import { CarTool } from '../components/CarTool';
+import { useRootStore } from '../contexts/rootStoreContext';
 
-const CarToolPage = observer(function CarToolPage({ store }) {
+const CarToolPage = observer(function CarToolPage() {
+
+  const { carToolStore: store } = useRootStore();
 
   return (
     <>

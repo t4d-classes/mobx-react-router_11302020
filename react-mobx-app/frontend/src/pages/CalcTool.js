@@ -1,8 +1,11 @@
 import { observer } from 'mobx-react-lite';
 
 import { CalcTool } from '../components/CalcTool';
+import { useRootStore } from '../contexts/rootStoreContext';
 
-const CalcToolPage = observer(function CalcToolPage({ store: calcToolStore }) {
+const CalcToolPage = observer(function CalcToolPage() {
+
+  const { calcToolStore } = useRootStore();
 
   return (
     <div>

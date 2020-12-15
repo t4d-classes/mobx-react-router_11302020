@@ -16,7 +16,7 @@ const activeStyle = {
   fontWeight: 'bold',
 };
 
-export default function App({ store }) {
+export default function App() {
   return (
     <Layout>
       <Header>
@@ -36,13 +36,13 @@ export default function App({ store }) {
             <Home />
           </Route>
           <Route path="/calctool">
-            <CalcTool store={store.calcToolStore} />
+            <CalcTool />
           </Route>
           <Route path="/colortool">
-            <ColorTool store={store.colorToolStore} />
+            <ColorTool />
           </Route>
           <Route path="/cartool">
-            <CarTool store={store.carToolStore} />
+            <CarTool />
           </Route>
         </Switch>
       </Content>

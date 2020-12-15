@@ -5,15 +5,17 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 
 import { RootStore } from './stores/RootStore';
+import { RootStoreProvider } from './contexts/rootStoreContext';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
-const rootStore = new RootStore();
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App store={rootStore} />
+      <RootStoreProvider value={new RootStore()}>
+        <App />
+      </RootStoreProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById('root')

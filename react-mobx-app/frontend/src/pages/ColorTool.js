@@ -1,8 +1,11 @@
 import { observer } from 'mobx-react-lite';
 
 import { ColorTool } from '../components/ColorTool';
+import { useRootStore } from '../contexts/rootStoreContext';
 
-const ColorToolPage = observer(function ColorToolPage({ store }) {
+const ColorToolPage = observer(function ColorToolPage() {
+
+  const { colorToolStore: store } = useRootStore();
 
   return (
     <>
