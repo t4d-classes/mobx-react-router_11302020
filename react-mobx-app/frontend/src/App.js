@@ -42,7 +42,7 @@ export default function App({ store }) {
             <ColorTool store={store.colorToolStore} />
           </Route>
           <Route path="/cartool">
-            <CarTool />
+            <CarTool store={store.carToolStore} />
           </Route>
         </Switch>
       </Content>
