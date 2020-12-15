@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx';
+import axios from 'axios';
 
 export class ColorToolStore {
 
@@ -7,21 +8,36 @@ export class ColorToolStore {
   constructor(rootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
+
+    this.refreshColors = this.refreshColors.bind(this);
+    this.appendColor = this.appendColor.bind(this);
+    this.removeColor = this.removeColor.bind(this);
   }
 
-  appendColor = (newColor) => {
+  *refreshColors() {
+    const response = yield axios.get('/api/colors');
+    this.colors = response.data.map(color => ({
+      id: color.colorId,
+      name: color.colorName,
+      hexcode: color.hexcode,
+    }));
+  }
 
-    this.colors.push({
-      ...newColor,
-      id: Math.max(...this.colors.map(c => c.id), 0) + 1,
+  *appendColor(newColor) {
+
+    yield axios.post('/api/colors', {
+      colorName: newColor.name,
+      hexcode: newColor.hexcode,
     });
+
+    yield this.refreshColors();
 
   };
 
-  removeColor = (colorId) => {
+  *removeColor(colorId) {
 
-    const colorIndex = this.colors.findIndex(c => c.id === colorId);
-    this.colors.splice(colorIndex, 1);
+    yield axios.delete('/api/colors/' + encodeURIComponent(colorId));
+    yield this.refreshColors();
 
   };
 

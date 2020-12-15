@@ -13,6 +13,7 @@ const ColorToolPage = observer(function ColorToolPage() {
         <h2>Color Tool</h2>
       </div>
       <ColorTool colors={store.colors.slice()}
+        onRefreshColors={store.refreshColors}
         onAppendColor={store.appendColor}
         onRemoveColor={store.removeColor} />
     </>

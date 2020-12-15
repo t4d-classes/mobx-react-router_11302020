@@ -1,0 +1,28 @@
+
+
+GET http://localhost:8080/api/colors HTTP/1.1
+
+###
+
+POST http://localhost:8080/api/colors HTTP/1.1
+Content-Type: application/json
+
+{
+  "colorName": "orange",
+  "hexcode": "FFFF00"
+}
+
+###
+
+PUT http://localhost:8080/api/colors/4 HTTP/1.1
+Content-Type: application/json
+
+{
+  "colorId": 4,
+  "colorName": "orange",
+  "hexcode": "updated"
+}
+
+###
+
+DELETE http://localhost:8080/api/colors/4 HTTP/1.1
