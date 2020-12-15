@@ -6,6 +6,7 @@ export class CarToolStore {
 
   cars = [];
   editCarId = -1;
+  errorMessage = '';
 
   constructor() {
     makeAutoObservable(this);
@@ -29,9 +30,15 @@ export class CarToolStore {
   }
 
   *appendCar(newCar) {
-    yield axios.post('/api/cars', newCar);
-    yield this.refreshCars();
-    this.editCarId = -1;
+    try {
+      yield axios.post('/api/cars', newCar);
+      yield this.refreshCars();
+      this.editCarId = -1;
+      this.errorMessage = '';
+    } catch (err) {
+      console.log(err);
+      this.errorMessage = 'The save failed.';
+    }
   };
 
   *replaceCar(car) {
