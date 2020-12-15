@@ -1,4 +1,6 @@
 import { makeAutoObservable } from 'mobx';
+import axios from 'axios';
+import { omit } from 'lodash-es';
 
 export class CarToolStore {
 
@@ -7,25 +9,43 @@ export class CarToolStore {
 
   constructor() {
     makeAutoObservable(this);
+
+    this.refreshCars = this.refreshCars.bind(this);
+    this.appendCar = this.appendCar.bind(this);
+    this.replaceCar = this.replaceCar.bind(this);
+    this.removeCar = this.removeCar.bind(this);
   }
 
-  appendCar = (newCar) => {
-    this.cars.push({
-      ...newCar,
-      id: Math.max(...this.cars.map(c => c.id), 0) + 1,
-    });
+  *refreshCars() {
+    const response = yield axios.get('/api/cars');
+    this.cars = response.data.map(car => ({
+      id: car.carId,
+      make: car.make,
+      model: car.model,
+      year: car.year,
+      color: car.color,
+      price: car.price,
+    }));
+  }
+
+  *appendCar(newCar) {
+    yield axios.post('/api/cars', newCar);
+    yield this.refreshCars();
     this.editCarId = -1;
   };
 
-  replaceCar = (car) => {
-    const carIndex = this.cars.findIndex(c => c.id === car.id);
-    this.cars.splice(carIndex, 1, car);
+  *replaceCar(car) {
+    yield axios.put(
+      '/api/cars/' + encodeURIComponent(car.id),
+      omit({ ...car, carId: car.id }, ['id']),
+    );
+    yield this.refreshCars();
     this.editCarId = -1;
   };
 
-  removeCar = (carId) => {
-    const carIndex = this.cars.findIndex(c => c.id === carId);
-    this.cars.splice(carIndex, 1);
+  *removeCar(carId) {
+    yield axios.delete('/api/cars/' + encodeURIComponent(carId));
+    yield this.refreshCars();
     this.editCarId = -1;
   };
 
