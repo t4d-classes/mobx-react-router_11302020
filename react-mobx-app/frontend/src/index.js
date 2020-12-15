@@ -1,12 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import './index.css';
+
+import { RootStore } from './stores/RootStore';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const rootStore = new RootStore();
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <App store={rootStore} />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

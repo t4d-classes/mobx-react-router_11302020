@@ -1,23 +1,57 @@
-import { CalcToolStore } from './stores/CalcToolStore';
-import { CalcTool } from './components/CalcTool';
-import { observer } from 'mobx-react-lite';
+import { NavLink, Route, Switch } from 'react-router-dom';
 
-import './App.css';
+import { Layout } from './components/Layout';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
+import { Menu } from './components/Menu';
+import { Content } from './components/Content';
+import { Sidebar } from './components/Sidebar';
 
-const calcToolStore = new CalcToolStore();
+import Home from './pages/Home';
+import CalcTool from './pages/CalcTool';
+import ColorTool from './pages/ColorTool';
+import CarTool from './pages/CarTool';
 
-const App = observer(function App() {
+const activeStyle = {
+  fontWeight: 'bold',
+};
+
+export default function App({ store }) {
   return (
-    <CalcTool result={calcToolStore.result}
-      history={[...calcToolStore.history]}
-      counts={calcToolStore.counts}
-      onDeleteHistoryEntry={calcToolStore.deleteHistoryEntry}
-      onClear={calcToolStore.clear}
-      onAdd={calcToolStore.add}
-      onSubtract={calcToolStore.subtract}
-      onMultiply={calcToolStore.multiply}
-      onDivide={calcToolStore.divide} />
+    <Layout>
+      <Header>
+        <h1>The Tool App</h1>
+      </Header>
+      <Menu>
+        <ul>
+          <li><NavLink to="/" exact activeStyle={activeStyle}>Home</NavLink></li>
+          <li><NavLink to="/calctool" activeStyle={activeStyle}>Calc Tool</NavLink></li>
+          <li><NavLink to="/colortool" activeStyle={activeStyle}>Color Tool</NavLink></li>
+          <li><NavLink to="/cartool" activeStyle={activeStyle}>Car Tool</NavLink></li>
+        </ul>
+      </Menu>
+      <Content>
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/calctool">
+            <CalcTool store={store.calcToolStore} />
+          </Route>
+          <Route path="/colortool">
+            <ColorTool store={store.colorToolStore} />
+          </Route>
+          <Route path="/cartool">
+            <CarTool />
+          </Route>
+        </Switch>
+      </Content>
+      <Sidebar>
+        sidebar
+      </Sidebar>
+      <Footer>
+        <small>&copy;{new Date().getFullYear()} A Cool Company, Inc.</small>
+      </Footer>
+    </Layout>
   );
-});
-
-export default App;
+}

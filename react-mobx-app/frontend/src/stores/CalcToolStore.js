@@ -83,8 +83,9 @@ export class CalcToolStore {
 
   }
 
-  constructor() {
+  constructor(rootStore) {
     makeAutoObservable(this);
+    this.rootStore = rootStore;
   }
 
   // stateful logic
