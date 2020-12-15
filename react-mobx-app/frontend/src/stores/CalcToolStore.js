@@ -124,7 +124,6 @@ export class CalcToolStore {
   }
 
   clear = () => {
-    this.result = 0;
     this.history = [];
   }
 
